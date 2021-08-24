@@ -1,0 +1,115 @@
+<html>
+    <head>
+       <meta charset="UTF-8">
+       <title>TO-DO List</title>
+       <link rel="stylesheet" type="text/css" href="todoList.css">
+       <script src="todoList.js"></script> 
+    </head>
+
+    <body>
+         
+         <div id = "div1">
+            <u><b></b><h1 id = 'h1'>ToDo List</h1></b></u>
+            <input type="text"  name = "taskInput" id = 'taskInput' placeholder="Enter your task:"><br>
+            <input type = 'checkbox' name = 'checked' id =  'checked'>Completed<br>
+            <input type = 'checkbox' name = 'unchecked' id =  'unchecked'>Uncompleted
+            <h4 id = 'h4Completed'>Completed tasks:</h4>
+
+            <ul id = 'completed'>
+
+            </ul>
+            
+
+            <h4 id = 'h4unCompleted'>Uncompleted tasks:</h4><br>
+
+            <ul id = 'uncompleted'>
+               
+            </ul> 
+            <br>
+            
+            <hr>
+            <a class = "a1" href = "MainPage.html">Introduction</a>
+            <a class = "a1" href = "strategies.html">Productivity strategies</a>
+            <a class = "a1" href = "productivityKillers.html">Productivity killers</a>
+            <a class = "a1" href = "tools.html">Tools</a>
+         </div>
+
+
+         <script>
+             const completedTask = [];
+             const uncompletedTask = [];
+             
+             //vrijednost elementa je sacuvana u taskInput
+             //ako se ovako ne izvlaci vrijednost elementa, kako onda?
+             //zasto mi nudi nodeValue a ne value?
+            
+             //let completedList = document.querySelector('completed');
+            // let uncompletedList = document.querySelector('uncompleted');
+            const completedTaskList = document.querySelector('#completed');
+             const putArrayElementsInList = () => {
+                let listContent = "";
+                for(let i = 0;i<completedTask.length;i++){
+                   listContent = `${listContent} <li id = 'liCompleted'>${completedTask[i]}</li> `;
+                }
+                completedTaskList.innerHTML = listContent;
+             }
+            
+             document.getElementById('checked').addEventListener('change',() =>{
+                    
+                    const taskInput = document.querySelector('#taskInput').value;
+                    if(!taskInput){
+                     return;
+                    }
+                    document.querySelector('#taskInput').value = '';
+                    completedTask.push(taskInput);
+                    putArrayElementsInList();
+                    console.log(completedTask);
+                    
+
+             }
+
+             
+             )
+
+            
+            let unCompletedTaskList = document.querySelector('#uncompleted');
+
+            let fillUncompletedList = () => {
+               let listContent2 = "";
+               for(let i = 0;i<uncompletedTask.length;i++){
+                  listContent2 = `${listContent2} <li id = 'liUncompleted'>${uncompletedTask[i]}</li>`;
+               }
+               unCompletedTaskList.innerHTML = listContent2;
+            }
+            document.getElementById('unchecked').addEventListener('change',() => {
+               const uncompletedTaskInput = document.querySelector('#taskinput').value;
+               if(!uncompletedTaskInput){
+                  return;
+
+               }
+               document.querySelector('#taskInput').value = '';
+               let finalCompletedTaskList;
+               for(let i = 0;i<completedTask.length;i++){
+                  if(completedTask[i] === uncompletedTaskInput){
+                     uncompletedTask.push(uncompletedTaskInput);
+                     finalCompletedTaskList = completedTask.splice(i,1);
+                  }
+                  
+               }
+               putArrayElementsInList();
+               fillUncompletedList();
+
+               console.log(uncompletedTask);
+               console.log(completedTask);
+            }
+            
+            
+            
+            )
+
+
+             
+             
+         </script>
+    </body>
+</html>
