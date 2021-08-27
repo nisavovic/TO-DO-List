@@ -114,13 +114,37 @@
             
             );
 
+            const onSelectChange = (element) => {
+              const value = element.value;
+              const id = element.getAttribute("data-index");
+              if (value === "completed") {
+                completedTask.push(enteredInputs[+id]); // + je konverzija iz stringa u broj
+              } else {
+                uncompletedTask.push(enteredInputs[+id]);
+              }
+              enteredInputs.splice(id, 1);
+              fillUncompletedList();
+              fillListOfEnteredTasks();
+              putArrayElementsInList();
+            }
+
             const fillListOfEnteredTasks = () => {
                const enteredTasks = document.querySelector('#enteredTasks');
                //const enteredTasks2 = document.querySelector('#enteredTasks');
                let content = " ";
                //let dropdown = $('<select><option>completed</option><option>uncompleted</option></select>');
                for(let i = 0; i<enteredInputs.length;i++){
-                  content = `${content} <li id = 'enteredElement'>${enteredInputs[i]}</li>`
+                  content = `
+                    ${content} 
+                    <li id = 'enteredElement'>
+                      <span>${enteredInputs[i]}</span>
+                      <select onchange="onSelectChange(this)" data-index="${i}">
+                        <option value="none" disabled selected>Please choose...</option>
+                        <option value="completed">Completed</option>
+                        <option value="uncompleted">Uncompleted</option>
+                      </select>
+                    </li>
+                  `
                  // let dropdown = $('<select><option>completed</option><option>uncompleted</option></select>');
                }
                enteredTasks.innerHTML = content;
