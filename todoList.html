@@ -11,6 +11,12 @@
          <div id = "div1">
             <u><b></b><h1 id = 'h1'>ToDo List</h1></b></u>
             <input type="text"  name = "taskInput" id = 'taskInput' placeholder="Enter your task:"><br>
+            <button type = "button" id = "buttonElement">Put the task in entered tasks!</button><br>
+            <h4 class = "entered">Entered tasks:</h4>
+            <ul id = "enteredTasks">
+
+            </ul>
+          
             <input type = 'checkbox' name = 'checked' id =  'checked'>Completed<br>
             <input type = 'checkbox' name = 'unchecked' id =  'unchecked'>Uncompleted
             <h4 id = 'h4Completed'>Completed tasks:</h4>
@@ -38,6 +44,7 @@
          <script>
              const completedTask = [];
              const uncompletedTask = [];
+             const enteredInputs = [];
              
              //vrijednost elementa je sacuvana u taskInput
              //ako se ovako ne izvlaci vrijednost elementa, kako onda?
@@ -105,7 +112,43 @@
             
             
             
-            )
+            );
+
+            const fillListOfEnteredTasks = () => {
+               const enteredTasks = document.querySelector('#enteredTasks');
+               //const enteredTasks2 = document.querySelector('#enteredTasks');
+               let content = " ";
+               //let dropdown = $('<select><option>completed</option><option>uncompleted</option></select>');
+               for(let i = 0; i<enteredInputs.length;i++){
+                  content = `${content} <li id = 'enteredElement'>${enteredInputs[i]}</li>`
+                 // let dropdown = $('<select><option>completed</option><option>uncompleted</option></select>');
+               }
+               enteredTasks.innerHTML = content;
+              // enteredTasks2.innerHTML = dropdown;
+               
+            }
+
+
+            document.querySelector('#buttonElement').addEventListener('click', () => {
+
+               const taskInputs = document.querySelector('#taskInput').value;
+               if(!taskInputs){
+                  return;
+               }
+
+               for(let i = 0;i<enteredInputs.length;i++){
+                  if(taskInputs == enteredInputs[i]){
+                     return;
+                  }
+               }
+
+               enteredInputs.push(taskInputs);
+               fillListOfEnteredTasks();
+               console.log(enteredInputs);
+
+            }) 
+
+            
 
 
              
