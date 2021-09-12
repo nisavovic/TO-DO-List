@@ -98,7 +98,7 @@ function App() {
              break;
            }
         }} defaultValue = 'none'>
-         <option value="none" disabled >Please choose...</option>
+         <option value="none" >Please choose...</option>
          <option value = 'completed'>Completed</option>
          <option value = 'uncompleted'>Uncompleted</option>
        </select>
